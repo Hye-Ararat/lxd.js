@@ -1,13 +1,42 @@
-import requestClient from "../lib/requestClient";
+import requestClient from "./lib/requestClient";
 import client from "./client";
+import { Issuer } from 'openid-client';
 
-export function connectOIDC(url: string, accessToken: string) {
-    const reqClient = requestClient({
-        headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "X-LXD-oidc": "true"
-        },
-        baseURL: url + "/1.0"
-    });
+export function connectOIDC(url: string, accessToken: string, refreshToken?: string) {
+    const reqClient = requestClient({});
+
+    reqClient.interceptors.request.use(async (request) => {
+        request.headers.Authorization = `Bearer ${accessToken}`;
+        request.headers["X-LXD-oidc"] = "true";
+        request.baseURL = url + "/1.0";
+        return request;
+    })
+
+    reqClient.interceptors.response.use(async (response) => {
+        return response;
+    }, async (error) => {
+        if (error.response.data) {
+            if (error.response.data["error"]) {
+                if (error.response.data["error"] == "invalid token") {
+                    if (refreshToken) {
+                        const oidcIssuer = await Issuer.discover(error.response.data.metadata["issuer"]);
+                        const oidcClient = new oidcIssuer.Client({
+                            client_id: error.response.data.metadata["client_id"],
+                            token_endpoint_auth_method: "none"
+                        });
+                        let newSet = await oidcClient.refresh(refreshToken);
+                        if (newSet.access_token && newSet.refresh_token) {
+                            accessToken = newSet.access_token;
+                            refreshToken = newSet.refresh_token;
+                            return await reqClient(error.config);
+                        } else {
+                            return error;
+                        }
+                    }
+                }
+            }
+        }
+        return error;
+    })
     return client(reqClient);
 }
