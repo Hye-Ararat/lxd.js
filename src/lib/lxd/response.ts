@@ -19,6 +19,6 @@ export interface Response {
     operation: string;
     error_code: number;
     error: string;
-    metadata: Object;
+    metadata: object;
 }
 

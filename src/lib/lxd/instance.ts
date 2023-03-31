@@ -8,8 +8,8 @@ export interface InstanceFull extends Instance {
 
 export interface Instance extends InstancePut {
     created_at: string;
-    expanded_config: Object;
-    expanded_devices: Object;
+    expanded_config: object;
+    expanded_devices: object;
     name: string;
     status: string;
     status_code: StatusCode;
@@ -21,8 +21,8 @@ export interface Instance extends InstancePut {
 
 export interface InstancePut {
     architecture: string;
-    config: Object;
-    devices: Object;
+    config: object;
+    devices: object;
     ephemeral: boolean;
     profiles: string[];
     restore: string;
