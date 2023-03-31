@@ -10,5 +10,8 @@
   "types": "./dist/index.d.ts",
   "devDependencies": {
     "@types/node": "^18.15.11"
+  },
+  "scripts": {
+    "build": "tsc -p ."
   }
 }
