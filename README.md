@@ -1,2 +1,2 @@
 # lxdjs
-JS/TS Client for LXD
+JS/TS Client for LXD.
