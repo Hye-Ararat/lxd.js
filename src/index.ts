@@ -40,3 +40,10 @@ export function connectOIDC(url: string, accessToken: string, refreshToken?: str
     })
     return new client(reqClient);
 }
+
+export function connectUnix(path: string) {
+    const reqClient = requestClient({
+        socketPath: path
+    })
+    return new client(reqClient);
+}
