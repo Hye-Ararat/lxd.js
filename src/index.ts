@@ -38,5 +38,5 @@ export function connectOIDC(url: string, accessToken: string, refreshToken?: str
         }
         return error;
     })
-    return client(reqClient);
+    return new client(reqClient);
 }
