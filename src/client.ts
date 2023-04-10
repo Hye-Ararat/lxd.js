@@ -10,10 +10,10 @@ export default class Client {
     constructor(requestClient: Axios) {
         this.requestClient = requestClient;
     }
-    async getInstances(): Promise<InstanceFull[]> {
-        const request = await this.requestClient.get("/instances?recursion=2");
+    async getInstances(recursion?: number): Promise<InstanceFull[] | Instance[]> {
+        const request = await this.requestClient.get(`/instances?recursion=${recursion || 1}`);
         const response = request.data as ResponseRaw;
-        return response.metadata as InstanceFull[];
+        return recursion == 2 ? response.metadata as InstanceFull[] : response.metadata as Instance[];
     }
     get cluster() {
         return new Cluster(this.requestClient);

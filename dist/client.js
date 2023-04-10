@@ -5,11 +5,11 @@ export default class Client {
     constructor(requestClient) {
         this.requestClient = requestClient;
     }
-    getInstances() {
+    getInstances(recursion) {
         return __awaiter(this, void 0, void 0, function* () {
-            const request = yield this.requestClient.get("/instances?recursion=2");
+            const request = yield this.requestClient.get(`/instances?recursion=${recursion || 1}`);
             const response = request.data;
-            return response.metadata;
+            return recursion == 2 ? response.metadata : response.metadata;
         });
     }
     get cluster() {

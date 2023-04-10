@@ -46,7 +46,8 @@ export function connectOIDC(url: string, accessToken: string, refreshToken?: str
 
 export function connectUnix(path: string) {
     const reqClient = requestClient({
-        socketPath: path
+        socketPath: path,
+        baseURL: "/1.0"
     })
     return new client(reqClient);
 }
