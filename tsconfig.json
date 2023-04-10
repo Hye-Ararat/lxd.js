@@ -1,11 +1,23 @@
 {
-  "compilerOptions": {
-    "target": "es2015",
-    "module": "commonjs",
-    "declaration": true,
-    "outDir": "./dist",
-    "strict": true,
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "**/__tests__/*"]
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "ES2015",
+        "moduleResolution": "bundler",
+        "declaration": true,
+        "outDir": "./dist",
+        "strict": true,
+        "strictNullChecks": false,
+        "esModuleInterop": true,
+        "pretty": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "importHelpers": true,
+        "noUnusedLocals": false,
+        "allowJs": true,
+        "checkJs": true
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "typeroots": ["node_modules/@types"],
 }
