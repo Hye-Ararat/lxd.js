@@ -1,4 +1,4 @@
-import { Axios } from "axios";
+import { Axios, AxiosError } from "axios";
 import { ResponseRaw } from "./lib/lxd/response";
 import { Instance as InstanceType } from "./lib/lxd/instance";
 
@@ -13,13 +13,14 @@ export default class Instance {
 
     get metadata(): Promise<InstanceType> {
         return new Promise(async (resolve, reject) => {
+            let request;
             try {
-                const request = await this.requestClient.get(`/instances/${this.name}`);
-                const response = request.data as ResponseRaw;
-                return resolve(response.metadata as InstanceType);
+                 request = await this.requestClient.get(`/instances/${this.name}`);
             } catch (error) {
-                return reject(error)
+                return reject(error);
             }
+            let response = request.data as ResponseRaw;
+            return resolve(response.metadata as InstanceType);
 
         })
     }

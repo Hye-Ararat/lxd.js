@@ -1,6 +1,8 @@
 import requestClient from "./lib/requestClient";
 import client from "./client";
 import { Issuer } from 'openid-client';
+import { Axios, AxiosError } from "axios";
+import { ResponseRaw } from "./lib/lxd/response";
 
 export function connectOIDC(url: string, accessToken: string, refreshToken?: string) {
     const reqClient = requestClient({});
@@ -36,7 +38,8 @@ export function connectOIDC(url: string, accessToken: string, refreshToken?: str
                 }
             }
         }
-        return error;
+        let err = error as AxiosError<ResponseRaw, Axios>
+        throw new Error(err.response?.data.metadata);
     })
     return new client(reqClient);
 }
