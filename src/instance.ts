@@ -11,7 +11,7 @@ export default class Instance {
         this.requestClient = requestClient;
     }
 
-    metadata(recur: boolean | undefined): Promise<InstanceType> {
+    metadata(recur?: boolean): Promise<InstanceType> {
         return new Promise(async (resolve, reject) => {
             let request;
             try {
