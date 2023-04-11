@@ -4,5 +4,5 @@ export default class Instance {
     name: string;
     private requestClient;
     constructor(name: string, requestClient: Axios);
-    metadata(recur: boolean | undefined): Promise<InstanceType>;
+    metadata(recur?: boolean): Promise<InstanceType>;
 }
