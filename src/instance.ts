@@ -11,11 +11,11 @@ export default class Instance {
         this.requestClient = requestClient;
     }
 
-    get metadata(): Promise<InstanceType> {
+    metadata(recur: boolean | undefined): Promise<InstanceType> {
         return new Promise(async (resolve, reject) => {
             let request;
             try {
-                 request = await this.requestClient.get(`/instances/${this.name}`);
+                 request = await this.requestClient.get(`/instances/${this.name}` + (recur ? "?recursion=1" : ""));
             } catch (error) {
                 return reject(error);
             }
