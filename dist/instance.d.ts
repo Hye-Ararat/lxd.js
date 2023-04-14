@@ -5,4 +5,5 @@ export default class Instance {
     private requestClient;
     constructor(name: string, requestClient: Axios);
     metadata(recur?: boolean): Promise<InstanceType>;
+    changeState(action: "start" | "stop" | "restart", force?: boolean, stateful?: boolean, timeout?: number): Promise<any>;
 }

@@ -17,4 +17,22 @@ export default class Instance {
             return resolve(response.metadata);
         }));
     }
+    changeState(action, force, stateful, timeout) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!force)
+                force = false;
+            if (!stateful)
+                stateful = false;
+            if (!timeout)
+                timeout = 30;
+            let request = yield this.requestClient.put(`/instances/${this.name}/state`, {
+                action,
+                force,
+                stateful,
+                timeout
+            });
+            let response = request.data;
+            return response.metadata;
+        });
+    }
 }

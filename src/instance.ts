@@ -24,5 +24,20 @@ export default class Instance {
 
         })
     }
+
+    async changeState(action: "start" | "stop" | "restart", force?: boolean, stateful?: boolean, timeout?: number) {
+        if (!force) force = false;
+        if (!stateful) stateful = false;
+        if (!timeout) timeout = 30;
+        let request = await this.requestClient.put(`/instances/${this.name}/state`, {
+            action,
+            force,
+            stateful,
+            timeout
+        });
+        let response = request.data as ResponseRaw;
+        return response.metadata;
+
+    }
     
 }
