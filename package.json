@@ -15,5 +15,5 @@
     "build": "tsc -p ."
   },
   "name": "lxdjs",
-  "version": "0.0.13"
+  "version": "0.0.14"
 }
