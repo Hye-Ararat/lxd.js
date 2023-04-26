@@ -39,7 +39,15 @@ export default class Instance {
         return response.metadata;
 
     }
-
+    async connectConsole(type?: string, height?: number, width?: number) {
+        let request = await this.requestClient.post(`/instances/${this.name}/console`, {
+            type: type ? type : "console",
+            height,
+            width
+        })
+        let response = request.data as ResponseRaw;
+        return response.metadata;
+    }
     async getState() {
         let request = await this.requestClient.get(`/instances/${this.name}/state`);
         let response = request.data as ResponseRaw;

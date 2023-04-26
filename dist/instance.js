@@ -35,6 +35,17 @@ export default class Instance {
             return response.metadata;
         });
     }
+    connectConsole(type, height, width) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let request = yield this.requestClient.post(`/instances/${this.name}/console`, {
+                type: type ? type : "console",
+                height,
+                width
+            });
+            let response = request.data;
+            return response.metadata;
+        });
+    }
     getState() {
         return __awaiter(this, void 0, void 0, function* () {
             let request = yield this.requestClient.get(`/instances/${this.name}/state`);
