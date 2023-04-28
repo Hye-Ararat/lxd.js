@@ -14,6 +14,6 @@ export default class Operation {
     async getState(){
         let request = await this.requestClient.get(`/operations/${this.id}`);
         let response = request.data as ResponseRaw;
-        return response.metadata as Operation;
+        return response.metadata as OperationType;
     }
 }
