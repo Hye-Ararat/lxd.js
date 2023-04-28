@@ -1,6 +1,7 @@
 import { __awaiter } from "tslib";
 import Cluster from "./cluster";
 import Instances from "./instances";
+import Operations from "./operations";
 export default class Client {
     constructor(requestClient) {
         this.requestClient = requestClient;
@@ -17,5 +18,8 @@ export default class Client {
     }
     get instances() {
         return new Instances(this.requestClient);
+    }
+    get operations() {
+        return new Operations(this.requestClient);
     }
 }

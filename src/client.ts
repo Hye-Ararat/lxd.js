@@ -4,6 +4,7 @@ import { InstanceFull } from "./lib/lxd/instance";
 import { ResponseRaw } from "./lib/lxd/response";
 import Cluster from "./cluster";
 import Instances from "./instances";
+import Operations from "./operations";
 
 export default class Client {
     private requestClient: Axios;
@@ -20,5 +21,8 @@ export default class Client {
     }
     get instances() {
         return new Instances(this.requestClient);
+    }
+    get operations() {
+        return new Operations(this.requestClient);
     }
 }
