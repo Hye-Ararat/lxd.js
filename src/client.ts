@@ -5,6 +5,7 @@ import { ResponseRaw } from "./lib/lxd/response";
 import Cluster from "./cluster";
 import Instances from "./instances";
 import Operations from "./operations";
+import { Operation } from "./lib/lxd/opteration";
 
 export default class Client {
     private requestClient: Axios;
@@ -15,6 +16,11 @@ export default class Client {
         const request = await this.requestClient.get(`/instances?recursion=${recursion || 1}`);
         const response = request.data as ResponseRaw;
         return recursion == 2 ? response.metadata as InstanceFull[] : response.metadata as Instance[];
+    }
+    async getOperations(): Promise<Operation[]> {
+        const request = await this.requestClient.get(`/operations?recursion=1`);
+        const response = request.data as ResponseRaw;
+        return response.metadata as Operation[];
     }
     get cluster() {
         return new Cluster(this.requestClient);

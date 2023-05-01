@@ -13,6 +13,13 @@ export default class Client {
             return recursion == 2 ? response.metadata : response.metadata;
         });
     }
+    getOperations() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const request = yield this.requestClient.get(`/operations?recursion=1`);
+            const response = request.data;
+            return response.metadata;
+        });
+    }
     get cluster() {
         return new Cluster(this.requestClient);
     }
