@@ -43,7 +43,8 @@ export default class Instance {
         let request = await this.requestClient.post(`/instances/${this.name}/console`, {
             type: type ? type : "console",
             height,
-            width
+            width,
+            interactive: true
         })
         let response = request.data as ResponseRaw;
         return response.metadata;
