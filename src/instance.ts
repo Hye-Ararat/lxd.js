@@ -44,7 +44,6 @@ export default class Instance {
             type: type ? type : "console",
             height,
             width,
-            interactive: true
         })
         let response = request.data as ResponseRaw;
         return response.metadata;
