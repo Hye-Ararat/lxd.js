@@ -61,7 +61,13 @@ export default class Instance {
             let request = yield this.requestClient.get(`/instances/${this.name}/files?path=${path}`);
             let response = {
                 data: request.data,
-                metadata: request.headers
+                metadata: {
+                    uid: request.headers["x-lxd-uid"],
+                    gid: request.headers["x-lxd-gid"],
+                    mode: request.headers["x-lxd-mode"],
+                    type: request.headers["x-lxd-type"],
+                    modified: request.headers["x-lxd-modified"],
+                }
             };
             return response;
         });
