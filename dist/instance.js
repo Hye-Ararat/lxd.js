@@ -79,7 +79,13 @@ export default class Instance {
     getFileMetadata(path) {
         return __awaiter(this, void 0, void 0, function* () {
             let request = yield this.requestClient.head(`/instances/${this.name}/files?path=${path}`);
-            let response = request.headers;
+            let response = {
+                uid: request.headers["x-lxd-uid"],
+                gid: request.headers["x-lxd-gid"],
+                mode: request.headers["x-lxd-mode"],
+                type: request.headers["x-lxd-type"],
+                modified: request.headers["x-lxd-modified"],
+            };
             return response;
         });
     }
