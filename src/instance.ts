@@ -25,6 +25,13 @@ export default class Instance {
         })
     }
 
+    //States
+    async getState() {
+        let request = await this.requestClient.get(`/instances/${this.name}/state`);
+        let response = request.data as ResponseRaw;
+        return response.metadata;
+    }
+
     async changeState(action: "start" | "stop" | "restart", force?: boolean, stateful?: boolean, timeout?: number) {
         if (!force) force = false;
         if (!stateful) stateful = false;
@@ -39,6 +46,8 @@ export default class Instance {
         return response.metadata;
 
     }
+
+    //Console
     async connectConsole(type?: string, height?: number, width?: number) {
         let request = await this.requestClient.post(`/instances/${this.name}/console`, {
             type: type ? type : "console",
@@ -48,10 +57,38 @@ export default class Instance {
         let response = request.data as ResponseRaw;
         return response.metadata;
     }
-    async getState() {
-        let request = await this.requestClient.get(`/instances/${this.name}/state`);
-        let response = request.data as ResponseRaw;
-        return response.metadata;
+
+    //Files
+    async getFile(path: string): Promise<object> {
+        let request = await this.requestClient.get(`/instances/${this.name}/files?path=${path}`);
+        let response = {
+            data: request.data as ResponseRaw | string,
+            metadata: request.headers
+        }
+        return response;
+    }
+
+    async getFileMetadata(path: string): Promise<object> {
+        let request = await this.requestClient.head(`/instances/${this.name}/files?path=${path}`);
+        let response = request.headers;
+        return response;
+    }
+
+    async createOrReplaceFile(path: string, contents: string, ownerUid?: string, ownerGid?: string, fileMode?: string, writeMode?: "overwrite" | "append") {
+        let headers = {};
+        if (ownerUid) headers["X-LXD-uid"] = ownerUid;
+        if (ownerGid) headers["X-LXD-gid"] = ownerGid;
+        if (fileMode) headers["X-LXD-mode"] = fileMode;
+        if (writeMode) headers["X-LXD-write"] = writeMode;
+        await this.requestClient.post(`/instances/${this.name}/files?path=${path}`, contents, {
+          headers: headers  
+        });
+        return;
+    }
+
+    async deleteFile(path: string) {
+        await this.requestClient.delete(`/instances/${this.name}/files?path=${path}`);
+        return;
     }
     
 }

@@ -17,6 +17,14 @@ export default class Instance {
             return resolve(response.metadata);
         }));
     }
+    //States
+    getState() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let request = yield this.requestClient.get(`/instances/${this.name}/state`);
+            let response = request.data;
+            return response.metadata;
+        });
+    }
     changeState(action, force, stateful, timeout) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!force)
@@ -35,6 +43,7 @@ export default class Instance {
             return response.metadata;
         });
     }
+    //Console
     connectConsole(type, height, width) {
         return __awaiter(this, void 0, void 0, function* () {
             let request = yield this.requestClient.post(`/instances/${this.name}/console`, {
@@ -46,11 +55,45 @@ export default class Instance {
             return response.metadata;
         });
     }
-    getState() {
+    //Files
+    getFile(path) {
         return __awaiter(this, void 0, void 0, function* () {
-            let request = yield this.requestClient.get(`/instances/${this.name}/state`);
-            let response = request.data;
-            return response.metadata;
+            let request = yield this.requestClient.get(`/instances/${this.name}/files?path=${path}`);
+            let response = {
+                data: request.data,
+                metadata: request.headers
+            };
+            return response;
+        });
+    }
+    getFileMetadata(path) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let request = yield this.requestClient.head(`/instances/${this.name}/files?path=${path}`);
+            let response = request.headers;
+            return response;
+        });
+    }
+    createOrReplaceFile(path, contents, ownerUid, ownerGid, fileMode, writeMode) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let headers = {};
+            if (ownerUid)
+                headers["X-LXD-uid"] = ownerUid;
+            if (ownerGid)
+                headers["X-LXD-gid"] = ownerGid;
+            if (fileMode)
+                headers["X-LXD-mode"] = fileMode;
+            if (writeMode)
+                headers["X-LXD-write"] = writeMode;
+            yield this.requestClient.post(`/instances/${this.name}/files?path=${path}`, contents, {
+                headers: headers
+            });
+            return;
+        });
+    }
+    deleteFile(path) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.requestClient.delete(`/instances/${this.name}/files?path=${path}`);
+            return;
         });
     }
 }
