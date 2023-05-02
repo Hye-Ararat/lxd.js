@@ -76,12 +76,16 @@ export default class Instance {
     createOrReplaceFile(path, contents, ownerUid, ownerGid, fileMode, writeMode) {
         return __awaiter(this, void 0, void 0, function* () {
             let headers = {};
+            //@ts-ignore
             if (ownerUid)
                 headers["X-LXD-uid"] = ownerUid;
+            //@ts-ignore
             if (ownerGid)
                 headers["X-LXD-gid"] = ownerGid;
+            //@ts-ignore
             if (fileMode)
                 headers["X-LXD-mode"] = fileMode;
+            //@ts-ignore
             if (writeMode)
                 headers["X-LXD-write"] = writeMode;
             yield this.requestClient.post(`/instances/${this.name}/files?path=${path}`, contents, {

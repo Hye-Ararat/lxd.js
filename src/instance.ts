@@ -76,9 +76,13 @@ export default class Instance {
 
     async createOrReplaceFile(path: string, contents: string, ownerUid?: string, ownerGid?: string, fileMode?: string, writeMode?: "overwrite" | "append") {
         let headers = {};
+        //@ts-ignore
         if (ownerUid) headers["X-LXD-uid"] = ownerUid;
+        //@ts-ignore
         if (ownerGid) headers["X-LXD-gid"] = ownerGid;
+        //@ts-ignore
         if (fileMode) headers["X-LXD-mode"] = fileMode;
+        //@ts-ignore
         if (writeMode) headers["X-LXD-write"] = writeMode;
         await this.requestClient.post(`/instances/${this.name}/files?path=${path}`, contents, {
           headers: headers  
