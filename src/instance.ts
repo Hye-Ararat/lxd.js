@@ -71,6 +71,10 @@ export default class Instance {
                 modified: request.headers["x-lxd-modified"],
             }
         }
+        if (response.metadata.type == "directory") {
+            //@ts-ignore
+            response.data = response.data["metadata"]
+        }
         return response;
     }
 
