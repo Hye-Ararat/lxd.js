@@ -93,8 +93,6 @@ export default class Instance {
         return __awaiter(this, void 0, void 0, function* () {
             let headers = {};
             //@ts-ignore
-            headers["Content-Type"] = "application/octet-stream";
-            //@ts-ignore
             if (ownerUid)
                 headers["X-LXD-uid"] = ownerUid;
             //@ts-ignore
@@ -107,7 +105,7 @@ export default class Instance {
             if (writeMode)
                 headers["X-LXD-write"] = writeMode;
             yield this.requestClient.post(`/instances/${this.name}/files?path=${path}`, contents, {
-                headers: headers
+                headers: Object.assign({ "Content-Type": "application/octet-stream" }, headers)
             });
             return;
         });
