@@ -93,6 +93,8 @@ export default class Instance {
         return __awaiter(this, void 0, void 0, function* () {
             let headers = {};
             //@ts-ignore
+            headers["Content-Type"] = "application/octet-stream";
+            //@ts-ignore
             if (ownerUid)
                 headers["X-LXD-uid"] = ownerUid;
             //@ts-ignore

@@ -93,6 +93,8 @@ export default class Instance {
     async createOrReplaceFile(path: string, contents: string, ownerUid?: string, ownerGid?: string, fileMode?: string, writeMode?: "overwrite" | "append") {
         let headers = {};
         //@ts-ignore
+        headers["Content-Type"] = "application/octet-stream";
+        //@ts-ignore
         if (ownerUid) headers["X-LXD-uid"] = ownerUid;
         //@ts-ignore
         if (ownerGid) headers["X-LXD-gid"] = ownerGid;
