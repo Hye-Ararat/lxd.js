@@ -104,6 +104,7 @@ export default class Instance {
             //@ts-ignore
             if (writeMode)
                 headers["X-LXD-write"] = writeMode;
+            this.requestClient.defaults.headers.common['Content-Type'] = 'application/octet-stream';
             yield this.requestClient.post(`/instances/${this.name}/files?path=${path}`, contents, {
                 headers: Object.assign({ "Content-Type": "application/octet-stream" }, headers)
             });
