@@ -5,12 +5,16 @@ import Cluster from "./cluster";
 import Instances from "./instances";
 import Operations from "./operations";
 import { Operation } from "./lib/lxd/operation";
+import { Profile } from "./lib/lxd/profile";
+import Profiles from "./profiles";
 export default class Client {
     private requestClient;
     constructor(requestClient: Axios);
     getInstances(recursion?: number): Promise<InstanceFull[] | Instance[]>;
     getOperations(): Promise<Operation[]>;
+    getProfiles(): Promise<Profile[]>;
     get cluster(): Cluster;
     get instances(): Instances;
     get operations(): Operations;
+    get profiles(): Profiles;
 }

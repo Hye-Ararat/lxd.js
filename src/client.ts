@@ -6,6 +6,8 @@ import Cluster from "./cluster";
 import Instances from "./instances";
 import Operations from "./operations";
 import { Operation } from "./lib/lxd/operation";
+import {Profile} from "./lib/lxd/profile";
+import Profiles from "./profiles";
 
 export default class Client {
     private requestClient: Axios;
@@ -22,6 +24,12 @@ export default class Client {
         const response = request.data as ResponseRaw;
         return response.metadata as Operation[];
     }
+    async getProfiles(): Promise<Profile[]> {
+        const request = await this.requestClient.get(`/instances?recursion=1`);
+        const response = request.data as ResponseRaw;
+        return response.metadata as Profile[];
+    }
+
     get cluster() {
         return new Cluster(this.requestClient);
     }
@@ -30,5 +38,8 @@ export default class Client {
     }
     get operations() {
         return new Operations(this.requestClient);
+    }
+    get profiles() {
+        return new Profiles(this.requestClient);
     }
 }
