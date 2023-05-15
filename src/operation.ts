@@ -1,6 +1,6 @@
 import { Axios } from "axios";
 import { ResponseRaw } from "./lib/lxd/response";
-import {Operation as OperationType} from "./lib/lxd/opteration";
+import {Operation as OperationType} from "./lib/lxd/operation";
 
 export default class Operation {
     private id: string;

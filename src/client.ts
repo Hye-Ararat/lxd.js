@@ -5,7 +5,7 @@ import { ResponseRaw } from "./lib/lxd/response";
 import Cluster from "./cluster";
 import Instances from "./instances";
 import Operations from "./operations";
-import { Operation } from "./lib/lxd/opteration";
+import { Operation } from "./lib/lxd/operation";
 
 export default class Client {
     private requestClient: Axios;
