@@ -25,7 +25,7 @@ export default class Client {
         return response.metadata as Operation[];
     }
     async getProfiles(): Promise<Profile[]> {
-        const request = await this.requestClient.get(`/instances?recursion=1`);
+        const request = await this.requestClient.get(`/profiles?recursion=1`);
         const response = request.data as ResponseRaw;
         return response.metadata as Profile[];
     }

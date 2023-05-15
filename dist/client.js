@@ -23,7 +23,7 @@ export default class Client {
     }
     getProfiles() {
         return __awaiter(this, void 0, void 0, function* () {
-            const request = yield this.requestClient.get(`/instances?recursion=1`);
+            const request = yield this.requestClient.get(`/profiles?recursion=1`);
             const response = request.data;
             return response.metadata;
         });
