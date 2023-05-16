@@ -3,6 +3,7 @@ import Cluster from "./cluster";
 import Instances from "./instances";
 import Operations from "./operations";
 import Profiles from "./profiles";
+import StoragePools from "./storagePools";
 export default class Client {
     constructor(requestClient) {
         this.requestClient = requestClient;
@@ -46,5 +47,8 @@ export default class Client {
     }
     get profiles() {
         return new Profiles(this.requestClient);
+    }
+    get storagePools() {
+        return new StoragePools(this.requestClient);
     }
 }

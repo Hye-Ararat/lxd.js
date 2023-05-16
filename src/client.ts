@@ -9,6 +9,7 @@ import { Operation } from "./lib/lxd/operation";
 import {Profile} from "./lib/lxd/profile";
 import Profiles from "./profiles";
 import { StoragePool } from "./lib/lxd/storagePool";
+import StoragePools from "./storagePools";
 
 export default class Client {
     private requestClient: Axios;
@@ -47,5 +48,8 @@ export default class Client {
     }
     get profiles() {
         return new Profiles(this.requestClient);
+    }
+    get storagePools() {
+        return new StoragePools(this.requestClient);
     }
 }
