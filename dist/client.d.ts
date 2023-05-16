@@ -7,12 +7,14 @@ import Operations from "./operations";
 import { Operation } from "./lib/lxd/operation";
 import { Profile } from "./lib/lxd/profile";
 import Profiles from "./profiles";
+import { StoragePool } from "./lib/lxd/storagePool";
 export default class Client {
     private requestClient;
     constructor(requestClient: Axios);
     getInstances(recursion?: number): Promise<InstanceFull[] | Instance[]>;
     getOperations(): Promise<Operation[]>;
     getProfiles(): Promise<Profile[]>;
+    getStoragePools(): Promise<StoragePool[]>;
     get cluster(): Cluster;
     get instances(): Instances;
     get operations(): Operations;
