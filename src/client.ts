@@ -10,6 +10,7 @@ import {Profile} from "./lib/lxd/profile";
 import Profiles from "./profiles";
 import { StoragePool } from "./lib/lxd/storagePool";
 import StoragePools from "./storagePools";
+import { Network } from "./lib/lxd/network";
 
 export default class Client {
     private requestClient: Axios;
@@ -35,6 +36,11 @@ export default class Client {
         const request = await this.requestClient.get(`/storage-pools?recursion=1`);
         const response = request.data as ResponseRaw;
         return response.metadata as StoragePool[];
+    }
+    async getNetworks(): Promise<Network[]> {
+        const request = await this.requestClient.get(`/networks?recursion=1`);
+        const response = request.data as ResponseRaw;
+        return response.metadata as Network[];
     }
 
     get cluster() {

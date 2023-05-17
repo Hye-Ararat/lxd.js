@@ -9,6 +9,7 @@ import { Profile } from "./lib/lxd/profile";
 import Profiles from "./profiles";
 import { StoragePool } from "./lib/lxd/storagePool";
 import StoragePools from "./storagePools";
+import { Network } from "./lib/lxd/network";
 export default class Client {
     private requestClient;
     constructor(requestClient: Axios);
@@ -16,6 +17,7 @@ export default class Client {
     getOperations(): Promise<Operation[]>;
     getProfiles(): Promise<Profile[]>;
     getStoragePools(): Promise<StoragePool[]>;
+    getNetworks(): Promise<Network[]>;
     get cluster(): Cluster;
     get instances(): Instances;
     get operations(): Operations;

@@ -4,7 +4,7 @@ import StoragePool from "./storagePool";
 export default class StoragePools {
     private requestClient: Axios;
 
-    async storagePool(name: string) {
+    storagePool(name: string) {
         return new StoragePool(name, this.requestClient);
     }
 
