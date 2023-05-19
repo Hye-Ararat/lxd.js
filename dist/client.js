@@ -43,6 +43,13 @@ export default class Client {
             return response.metadata;
         });
     }
+    createInstance(instance) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const request = yield this.requestClient.post(`/instances`, instance);
+            const response = request.data;
+            return response.metadata;
+        });
+    }
     get cluster() {
         return new Cluster(this.requestClient);
     }

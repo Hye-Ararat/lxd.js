@@ -1,6 +1,6 @@
 import { Axios } from "axios";
 import Instance from "./instance";
-import { InstanceFull } from "./lib/lxd/instance";
+import { InstanceFull, InstancePut } from "./lib/lxd/instance";
 import { ResponseRaw } from "./lib/lxd/response";
 import Cluster from "./cluster";
 import Instances from "./instances";
@@ -41,6 +41,12 @@ export default class Client {
         const request = await this.requestClient.get(`/networks?recursion=1`);
         const response = request.data as ResponseRaw;
         return response.metadata as Network[];
+    }
+
+    async createInstance(instance: InstancePut) {
+        const request = await this.requestClient.post(`/instances`, instance);
+        const response = request.data as ResponseRaw;
+        return response.metadata;
     }
 
     get cluster() {
